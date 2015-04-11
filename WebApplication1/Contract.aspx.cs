@@ -29,9 +29,8 @@ namespace COFCOsubmission
                 this.Btn_Details.Visible = false;
                 this.Btn_Commit.Visible = false;
                 this.Selldb.Value =Variable.loginUser.UserName;
-                this.BuyTime.Value = DateTime.Now.ToString("yyyy-MM-dd");
-                this.SellTime.Value = DateTime.Now.ToString("yyyy-MM-dd");
-                //this.hetongNum.Value = GetContractNo("06");
+                this.BuyTime.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                this.SellTime.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             }
 
 
@@ -65,9 +64,11 @@ namespace COFCOsubmission
                 SellTime.Value = dt.Rows[0]["SellerSigtime"].ToString();
                 this.id.Value = Request.QueryString["id"].ToString();
 
+                //合同状态
+                string status = dt.Rows[0]["submitting"].ToString();
+
                 string BuyerAddress = dt.Rows[0]["BuyerAddress"].ToString();
                 string BuyerPhone = dt.Rows[0]["BuyerPhone"].ToString();
-
 
                 DataTable dts = contractDAL.GetData(" xf_supplier ", " custcode ", " custname = '" + dt.Rows[0]["Buyer"].ToString() + "'");
                 if (dts.Rows.Count > 0)
@@ -75,10 +76,13 @@ namespace COFCOsubmission
                     ViewState["address"] = queryAddress(dts.Rows[0][0].ToString(), BuyerAddress + "|" + BuyerPhone);
                     ViewState["id"] = Request.QueryString["id"].ToString();
                 }
-                this.Btn_Details.Visible = true;
-                this.Btn_Commit.Visible = true;
 
-                
+                //状态为提交态
+                if (Int32.Parse(status) == 2)
+                {
+                    this.Btn_Save.Visible = false;
+                    this.Btn_Commit.Visible = false;
+                }
             }
      }
         /// <summary>
@@ -87,14 +91,11 @@ namespace COFCOsubmission
         /// <param name="str"></param>
         public void message(string str)
         {
-            //string html = "<script  Language='JavaScript'>alert('" + str + "')</script>";
-            //Response.Write(html);
             Response.Write("<script>alert('"+str+"')</script>");
         }
 
         public static string queryAddress(string custcode,string defaultValue)
         {
-
             DataTable dt = CustomerDAL.QueryCustAdressByCustCode(custcode);
 
             string str = "";
@@ -123,7 +124,7 @@ namespace COFCOsubmission
                     {
                         selected = "selected";
                     }
-                    str += "<option title='" + addrnameall + "' value='" + addrnameall + "|" + linkname + "|" + phone + "'" + selected + ">" + addrname + "</option>";
+                    str += "<option value='" +newValue + "'" + selected + ">" + addrname + "</option>";
                 }
             }
             return str;
@@ -174,8 +175,6 @@ namespace COFCOsubmission
                     if (i > 0)
                     {
                         this.id.Value = info.ID;
-                        //message("保存成功！");
-                        //this.aa.Visible = true;
                         Btn_Details.Visible = true;
                         Btn_Commit.Visible = true;
                         //保存之后赋值
@@ -197,13 +196,29 @@ namespace COFCOsubmission
                 Btn_Commit.Visible = true;
             }
         }
-
+        /// <summary>
+        /// 提交数据到OA相应表单(销售订单申请表)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Btn_Commit_Click(object sender, EventArgs e)
         {
             string id = this.id.Value.ToString();
             BPMSrvPortTypeClient client = new BPMSrvPortTypeClient("BPMSrvHttpSoap11Endpoint");
             DataVO data=contractDAL.GetOAData(id);
-            ResponseVO res= client.launchForm("oa-lgx","合同申请单-测试",data);
+            //OA登录账户与姓名
+            string oaLoginAccount = Variable.loginUser.OaAccount;
+            string oaLoginName = Variable.loginUser.OaAccountName;
+            string oaTitle = "销售订单申请表(" + oaLoginName + ")";
+            ResponseVO res = client.launchForm(oaLoginAccount, oaTitle, data);
+            if (res.colId != -1)
+            {
+                //更新合同状态为已提交
+                new DAL.ContractDAL().updateContractStatus(id);
+                //message("合同申请单提交OA成功！");
+                this.Btn_Commit.Visible = false;
+                this.Btn_Save.Visible = false;
+            }
         }
 
         protected void Btn_Details_Click(object sender, EventArgs e)

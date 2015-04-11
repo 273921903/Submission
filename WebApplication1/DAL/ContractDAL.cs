@@ -185,6 +185,39 @@ namespace COFCOsubmission.DAL
              }
              return "";
          }
+        /// <summary>
+         /// 更新合同主表状态为已提交(submitting=2 )
+        /// </summary>
+        /// <param name="contractID"></param>
+         public void updateContractStatus(string contractID)
+         {
+             SqlConnection conn = new SqlConnection(connectString);
+             SqlCommand com = new SqlCommand();
+             com.Connection = conn;
+
+             if (conn.State == ConnectionState.Closed)
+             {
+                 conn.Open();
+             }
+             SqlTransaction transaction = conn.BeginTransaction();
+             com.Transaction = transaction;
+
+             try
+             {
+                 com.CommandText = "update xf_contract set submitting=2 where id='" + contractID + "'";
+                 com.ExecuteNonQuery();
+                 transaction.Commit();
+             }
+             catch (Exception ex)
+             {
+                 transaction.Rollback();
+                 ex.ToString();
+             }
+             finally
+             {
+                 conn.Close();
+             }
+         }
 
         /// <summary>
         /// 创建OA表单服务所需要的数据对象
@@ -241,7 +274,7 @@ namespace COFCOsubmission.DAL
                      oaData.sellerOpebank = dr["sellerOpebanck"].ToString();
                      oaData.sellerBankId = dr["sellerBankacc"].ToString();
 
-                     oaData.sellersigTime = dr["sellerSigtime"].ToString();
+                     oaData.sellersigTime = dr["sellerSigtime"].ToString() ;
                      //oaData.userId = dr["userId"].ToString();
                      //oaData.Submitting = Boolean.Parse(dr["submitting"].ToString());
                      //oaData.Examine = Boolean.Parse(dr["examine"].ToString());
