@@ -33,7 +33,7 @@ namespace COFCOsubmission
         /// <param name="e"></param>
         protected void Button1_Click(object sender, EventArgs e)
         {
-            CustGiv.DataSource = CustomerDAL.QueryCustInfo(SearchText.Text.Trim());
+            CustGiv.DataSource = ProductInfoDAL.QueryProductInfo(SearchText.Text.Trim());
             CustGiv.DataBind();
         }
 

@@ -114,11 +114,11 @@ namespace COFCOsubmission
         /// <summary>
         /// 是否已提交
         /// </summary>
-        public bool Submitting{get;set;}
+        public int Submitting{get;set;}
         /// <summary>
         /// 审核状态
         /// </summary>
-        public bool Examine{get;set;}
+        public int Examine{get;set;}
         /// <summary>
         /// 审核人
         /// </summary>

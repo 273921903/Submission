@@ -62,18 +62,19 @@ namespace COFCOsubmission
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string addrname;
-                    if (dt.Rows[i]["addrname"].ToString().Length > 18)
+                    if (dt.Rows[i]["addrname"].ToString().Length > 10)
                     {
-                        addrname = dt.Rows[i]["addrname"].ToString().Substring(0, 18) + "...";
+                        addrname = dt.Rows[i]["addrname"].ToString().Substring(0, 10) + "...";
                     }
                     else
                     {
                         addrname = dt.Rows[i]["addrname"].ToString();
                     }
+
                     string addrnameall = dt.Rows[i]["addrname"].ToString();
                     string linkname=dt.Rows[i]["linkname"].ToString();
                     string phone=dt.Rows[i]["phone"].ToString();
-                    str += "<option title='" + addrnameall + "' value='" + addrnameall + "|" + linkname + "|" + phone + "'>" + addrname + "</option>";
+                    str += "<option value='" + addrnameall + "|" + linkname + "|" + phone + "'>" + addrname + "</option>";
                 }
             }
             

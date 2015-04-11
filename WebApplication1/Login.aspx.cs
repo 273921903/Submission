@@ -28,7 +28,7 @@ namespace COFCOsubmission
             LoginUser user = loginDAL.Verification(userName.Text.Trim(), userPassword.Text.Trim());
             if (user == null)
             {
-                Response.Write("<script type='text/javascript'>alert('*登陆失败：用户名或密码错误')</script>");
+                //messag.Text = "*登陆失败：用户名或密码错误";
             }
             else
             {

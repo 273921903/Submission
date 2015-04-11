@@ -6,7 +6,7 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>存货档案信息</title>
-<%--    <link href="css/Customer.css" rel="stylesheet" />--%>
+    <%--<link href="css/Customer.css" rel="stylesheet" />--%>
     <style type="text/css">
         body {
             background-color:#5CA3D8;
@@ -38,7 +38,7 @@
                 var mainmeasrate = $(this).parent().find("td:eq(3)").text();
                 var rMeSpecName = $(this).parent().find("td:eq(4)").text();
 
-                var str = rMeCode+"@"+rMecodeName+"@"+measname+"@"+mainmeasrate+"@"+rMeSpecName;
+                var str = rMeCode + "@" + rMecodeName + "@" + measname + "@" + mainmeasrate + "@" + rMeSpecName;
                 
                 window.opener.location.href = "ContractInfo.aspx?param=" + str;
                 window.close();
@@ -120,15 +120,12 @@
         </table>
     <%--<div id="header">
             <div class="gohome radius20">
-                <a href="Index.aspx" id="home">
-                    主页
-                    <img title="" alt="" src="img/home.png" />
-                </a>
+
             </div>
             <span style="font-size:50px;text-align:center;margin-left:30%;line-height:200%;height:100%;">存货档案信息</span>
             <div class="gomenu radius20">
                 <a href="#">
-                    <img src="img/contact.png" />
+
                     关闭
                 </a>
             </div>

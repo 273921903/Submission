@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Collections;
+using COFCOsubmission.OABMPService;
 
 namespace COFCOsubmission.DAL
 {
@@ -30,18 +32,12 @@ namespace COFCOsubmission.DAL
                 {
                     conn.Open();
                 }
-
-                
-
                 SqlCommand com = new SqlCommand();
                 com.Connection = conn;
                 com.CommandText = "select " + strName + " from " + tableName + " where " + whereStr;
 
                 SqlDataAdapter da = new SqlDataAdapter(com);
                 da.Fill(dt);
-
-                
-
             }
             catch (Exception ex)
             {
@@ -49,23 +45,9 @@ namespace COFCOsubmission.DAL
                 {
                     conn.Close();
                 }
-                
             }
-
             return dt;
         }
-
-        /// <summary>
-        /// 初始化加载表单默认信息
-        /// </summary>
-         public static ContractInfo InitFormInfo()
-         {
-             ContractInfo info = new ContractInfo();
-             info.Seller = "";
-             return info;
-         }
-
-
         /// <summary>
         /// 对合同主表的信息进行增行或者修改的操作
         /// </summary>
@@ -183,9 +165,7 @@ namespace COFCOsubmission.DAL
          /// <summary>
          /// 生成合同单号
          /// </summary>
-         /// <param name="tableName"></param>
-         /// <param name="strName"></param>
-         /// <param name="whereStr"></param>
+         /// <param name="com"></param>
          /// <returns></returns>
          public string GetContractNo(SqlCommand com)
          {
@@ -202,11 +182,109 @@ namespace COFCOsubmission.DAL
              }
              catch (Exception ex)
              {
-
              }
              return "";
          }
 
-         
+        /// <summary>
+        /// 创建OA表单服务所需要的数据对象
+        /// </summary>
+        /// <param name="id">合同主表ID</param>
+        /// <returns></returns>
+         public DataVO GetOAData(string id)
+         {
+             OABMPService.DataVO oaData = new DataVO();
+
+             SqlConnection conn = new SqlConnection(connectString);
+             DataTable dt = new DataTable();
+             try
+             {
+                 if (conn.State == ConnectionState.Closed)
+                 {
+                     conn.Open();
+                 }
+                 SqlCommand com = new SqlCommand();
+                 com.Connection = conn;
+                 com.CommandText = "select * from xf_contract where id=@id ";
+                 com.Parameters.AddWithValue("@id",id);
+                 SqlDataAdapter da = new SqlDataAdapter();
+                 da.SelectCommand = com;
+                 da.Fill(dt);
+
+                 if(dt.Rows.Count>0)
+                 {
+                     DataRow dr=dt.Rows[0];
+                     oaData.@operator = Variable.loginUser.OaAccountName;     //制表人,OA人员
+                     oaData.operatTime = DateTime.Now.ToString("yyyy-MM-dd"); //制表时间,当前日期
+                     oaData.contractID = dr["contractId"].ToString();
+                     oaData.signingAddress = dr["contractAddress"].ToString();
+                     oaData.seller = dr["seller"].ToString();
+                     oaData.buyer = dr["buyer"].ToString();
+                     oaData.deliveryTime = dr["deliveryTime"].ToString();
+                     oaData.deliveryAddress = dr["deliveryAddress"].ToString();
+                     oaData.transport = dr["transcost"].ToString();
+                     oaData.paymentType = dr["paymentType"].ToString();
+                     oaData.performTime = dr["performPeriod"].ToString();
+                     oaData.buyerRep = dr["buyerRep"].ToString();
+                     oaData.buyerAddress = dr["buyerAddress"].ToString();
+
+                     oaData.buyerPhone = dr["buyerPhone"].ToString();
+                     oaData.buyerFax = dr["buyerFax"].ToString();
+                     oaData.buyerOpebank = dr["buyerOpebanck"].ToString();
+                     oaData.buyerBankId = dr["buyerBankacc"].ToString();
+                     oaData.buyersigTime = dr["buyerSigtime"].ToString();
+                     oaData.sellerRep = dr["sellerRep"].ToString();
+
+                     oaData.sellerAddress = dr["sellerAddress"].ToString();
+                     oaData.sellerPhone = dr["sellerPhone"].ToString();
+                     oaData.sellerFax = dr["sellerFax"].ToString();
+                     oaData.sellerOpebank = dr["sellerOpebanck"].ToString();
+                     oaData.sellerBankId = dr["sellerBankacc"].ToString();
+
+                     oaData.sellersigTime = dr["sellerSigtime"].ToString();
+                     //oaData.userId = dr["userId"].ToString();
+                     //oaData.Submitting = Boolean.Parse(dr["submitting"].ToString());
+                     //oaData.Examine = Boolean.Parse(dr["examine"].ToString());
+
+                     //明细表
+                     dt.Clear();
+                     com.Parameters.Clear();
+                     com.CommandText = "select * from xf_contract_b where mid=@mid";
+                     com.Parameters.AddWithValue("@mid", id);
+                     da.SelectCommand = com;
+                     da.Fill(dt);
+
+                     SubVo[] vos = new SubVo[dt.Rows.Count];
+                     for (int i = 0; i < dt.Rows.Count;i++ )
+                     {
+                         DataRow row = dt.Rows[i];
+                         SubVo subVO = new SubVo();
+                         subVO.sid = row["sid"].ToString();
+                         subVO.mid = row["mid"].ToString();
+                         subVO.invcode = row["invcode"].ToString();
+                         subVO.invname = row["invname"].ToString();
+                         subVO.invspec = row["invspec"].ToString();
+                         subVO.measname = row["measname"].ToString();
+                         subVO.measrate = row["measrate"].ToString();
+                         subVO.num = row["num"].ToString();
+                         subVO.price = row["price"].ToString();
+                         subVO.nmoney = row["nmoney"].ToString();
+                         subVO.def1 = row["def1"].ToString();
+                         subVO.def2 = row["def2"].ToString();
+                         subVO.def3 = row["def3"].ToString();
+                         vos[i] = subVO;
+                     }
+                     oaData.subs=vos;
+                 }
+             }
+             catch (Exception ex)
+             {
+                 if (conn.State == ConnectionState.Open)
+                 {
+                     conn.Close();
+                 }
+             }
+             return oaData;
+         }
     }
 }
