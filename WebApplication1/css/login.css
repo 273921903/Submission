@@ -1,0 +1,75 @@
+﻿body {
+    padding:0px;
+    margin:0px;
+}
+.loginmain {
+background-image:url(../img/backimg.png);
+background-size:100% 100%;
+width:100%;
+height:100%;
+position:fixed ;
+}
+
+
+
+.Name {
+    width:70%;
+    height:5%;
+    position:absolute;
+    float:left ;
+    top:59%;
+    left:20%;
+}
+.Password {
+    width:70%;
+    height:5%;
+    position:absolute;
+    float:left ;
+    top:65%;
+    left:20%;
+}
+
+#userName {
+    width:100%;
+    height:100%;
+}
+
+#userPassword {
+    width:100%;
+    height:100%;
+}
+
+.text
+{
+BACKGROUND-COLOR: transparent;
+BORDER-BOTTOM: #000000 1px hidden;
+BORDER-LEFT: #000000 1px hidden;
+BORDER-RIGHT: #000000 1px hidden;
+BORDER-TOP: #000000 1px hidden;
+COLOR: #000000;
+border-color: #000000 #000000 #000000 #000000;
+}
+
+.Land {
+    width:91%;
+    height:7%;
+    position:absolute;
+    float:left;
+    top:79%;
+    left:5%;
+    align-content:center;
+}
+
+#landbutton1 {
+    cursor:pointer;
+    width:100%;
+    height:100%;
+    background:border-box;
+    border:none;
+}
+
+#messag {
+    position:absolute;
+    top:55%;
+    left:6%;
+}

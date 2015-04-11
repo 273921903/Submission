@@ -1,0 +1,427 @@
+﻿body {
+        padding:0px;
+    margin:0px;
+}
+#header{ 
+    position:absolute;
+    top:-100px;
+    left:0px; 
+     z-index:9999; 
+     width:94%; 
+     height:30px;
+     padding:4px 3%;
+     background-color:#2365C4;
+     color:#FFF;
+}
+
+.gohome{ width:30px; height:30px; float:left;}
+.gohome a{ color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:12px; display:block; text-align:center;}
+.gohome a img{display:inline-block;max-height:23px; margin:3px 0 0 0;}
+
+.gomenu {
+    background-color:#1A4B91;
+    width:30px;
+    height:30px;
+    float:right;
+}
+    .gomenu a {
+        color:#fff;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:12px;
+        display:block;
+        text-align:center;
+    }
+        .gomenu a img {
+            display:inline-block;
+            max-height:20px;
+            margin:3px 0px 0px;
+        }
+
+.radius20 {
+    border-radius:20px;
+}
+
+.radius20{-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px;}
+
+.swiper-container {
+    margin:0px auto;
+    overflow:hidden;
+    backface-visibility:hidden;
+    z-index:1;
+    max-width:800px;
+    height:100%;
+    position:relative;
+
+}
+
+.box {
+    float:left;
+    width:100%;
+    height:100%;
+    position:relative;
+    float: left;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.box1 {
+    float:left;
+    display:inline;
+    -moz-background-size:100% 100%;
+    background-image:url(../img/7.jpg);
+    background-size:100% 100%;
+}
+
+.box2 {
+    float:left;
+    display:inline;
+    -moz-background-size:100% 100%;
+    background-image:url(../img/7.jpg);
+    background-size:100% 100%;
+}
+
+.box3 {
+    float:left;
+    display:inline;
+    -moz-background-size:100% 100%;
+    background-image:url(../img/7.jpg);
+    background-size:100% 100%;
+}
+
+.meaniu {
+    width:100%;
+    height:60%;
+    top:20%;
+    position:relative;
+}
+
+    .meaniu ul {
+        width:100%;
+        position:relative;
+        display:block;
+        float:left;
+        margin:0px;
+        padding:0px;
+        height:auto;
+    }
+
+        /*.meaniu ul li {
+            display:block;
+            margin:1% 0px 2% 4%;
+            list-style:outside none none;
+            padding:5.5% 0px;
+            margin:auto auto; 
+            float:left;
+            background-image:url("../img/transparent_circle.png");
+            width:28%;
+            height:auto;
+            text-align:center;
+            background-position:center;
+            background-repeat:no-repeat;
+            background-size:cover;
+            margin-left:4%
+
+        }*/
+        .meaniu ul li {
+    list-style: outside none none;
+    margin: 1% 0px 2% 2%;
+    padding: 5.5% 0px;
+    width: 30%;
+    height: auto;
+    float: left;
+    display: block;
+    text-align: center;
+    background-image: url("../img/transparent_circle.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+            .meaniu ul li a {
+                color:#fff;
+                text-decoration:none;
+                text-align:center;
+            }
+            .meaniu ul li img {
+                display:inline-block;
+                max-width:50%;
+            }
+            .meaniu ul li a span {
+                display:block;
+                text-align:center;
+                font-size:15px;
+                line-height:15px;
+            }
+
+.order {
+    width:100%;
+    height:100%;
+    position:absolute;
+    margin:0px 0px;
+    float:left;
+}
+
+.Search {
+    width:99%;
+    height:20px;
+    position:absolute;
+    top:40px;
+    float:left;
+    Z-INDEX:999999;
+}
+
+.List {
+    width:100%;
+    max-width:800px;
+    position:absolute;
+    margin-top:65px;
+    float:left;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    height:auto;
+}
+
+#SearchText {
+    border-color:#999999;
+    border-width:1px;
+    border-style:Solid;
+    height:94%;
+    width:100%;
+}
+
+.Merchants {
+    width:100%;
+    height:100%;
+    position:absolute;
+    margin:0px 0px;
+    float:left;
+}
+
+#MerchantsText {
+    border-color:#999999;
+    border-width:1px;
+    border-style:Solid;
+    height:94%;
+    width:100%;
+}
+
+#productInfo th {
+    border:none;
+    width:auto;
+}
+#productInfo td {
+    border:none;
+}
+
+#Confirmation {
+     border:1px solid;
+     border-color:#999999;
+}
+
+#productNum {
+    width:100%;
+    align-content:center;
+}
+
+
+
+/*底部操作栏*/
+.bottomDiv {
+    width:100%;
+    height:30px;
+    float:left;
+    bottom:0px;
+    position:absolute;
+}
+
+/*合同基本信息*/
+
+.Information {
+    width:100%;
+    height:100%;
+    position:absolute;
+    margin:0px 0px;
+    float:left;
+    overflow:hidden;
+}
+
+.hetong {
+    border:2px solid #2365C4;
+    background-color:white;
+    width:99%;
+    margin-top:0px;
+    height:auto;
+    float:left;
+}
+
+    .hetong span {
+        font-size:12px;
+        width:100%;
+        text-align:center;
+        color:#165b7e;
+    }
+
+#httable {
+    font-size:12px;
+    width:100%;
+}
+
+
+    #httable td:first-child {
+        float:left;
+        margin-top:3px;
+        text-align:right;
+        width:100%;
+        /*border-bottom:1px solid #2365C4;*/
+    }
+
+    #httable td input {
+        width:90%;
+    }
+
+    #httable #payfang {
+        width:82%;
+    }
+
+.hetong #fukuan {
+    width:90%;
+}
+
+    /*买卖双方基本信息*/
+.mation {
+    margin-top:40px;
+}
+
+/*卖方基本信息*/
+.Sellinfo {
+    border:2px solid #2365C4;
+    background-color:white;
+    width:99%;
+    margin-top:2px;
+    float:left;
+}
+
+    .Sellinfo span {
+        font-size:12px;
+        width:100%;
+        text-align:center;
+        color:#165b7e;
+    }
+
+#SellTable {
+    font-size:12px;
+    width:100%;
+}
+
+    #SellTable td:first-child {
+        float:left;
+        margin-top:3px;
+        text-align:right;
+        width:100%;
+    }
+
+    #SellTable td:last-child {
+        width:68%;
+    }
+
+    #SellTable td input {
+        width:90%;
+    }
+
+    /*买方*/
+.Buyinfo {
+    border:2px solid #2365C4;
+    background-color:white;
+    width:99%;
+    margin-top:2px;
+    float:left;
+}
+
+    .Buyinfo span {
+        font-size:12px;
+        width:100%;
+        text-align:center;
+        color:#165b7e;
+    }
+
+#BuyTable {
+    font-size:12px;
+    width:100%;
+}
+
+    #BuyTable td:first-child {
+        float:left;
+        margin-top:3px;
+        text-align:right;
+        width:100%;
+    }
+
+    #BuyTable td:last-child {
+        width:68%;
+    }
+
+    #BuyTable td input {
+        width:90%;
+    }
+
+    /*存货确认页面*/
+.SureBox {
+    width:100%;
+    height:100%;
+    position:absolute;
+    margin:0px 0px;
+    float:left;
+}
+
+.SureMenu {
+    margin-top:40px;
+}
+
+    .SureMenu input {
+        width:100%;
+    }
+
+#SureGiv {
+    font-size:12px;
+    text-align:center;
+}
+
+
+/*已确认订单*/
+
+.myorder {
+    width:100%;
+    height:100%;
+    position:absolute;
+    margin:0px 0px;
+    float:left;
+}
+
+.myOrdMain {
+    margin-top:40px;
+}
+
+    .myOrdMain tr {
+        cursor:pointer;
+           
+    }
+
+
+    /*订单存货详情*/
+.OrderDetail {
+    width:100%;
+    height:100%;
+    position:absolute;
+    margin:0px 0px;
+    float:left;
+}
+
+.DetialLies {
+    margin-top:40px;
+}
+
+        /*.hover {
+            background-color:#2365C4;
+        }*/

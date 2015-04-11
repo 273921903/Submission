@@ -1,0 +1,61 @@
+﻿body {
+    margin-top:0;
+    margin-left:0;
+}
+
+ #header{ 
+    position:absolute;
+    top:0px;
+    left:0px; 
+     z-index:9999; 
+     width:94%; 
+     height:5%;
+     padding:4px 3%;
+     background-color:#2365C4;
+     color:#FFF;
+}
+
+.gohome{ /*width:5%;*/ height:100%; float:left;}
+.gohome a{ color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:50px; display:block; text-align:center; height:100%;line-height:200%;}
+.gohome a img{display:inline-block;max-height:100%; margin:3px 0 0 0;}
+
+.gomenu {
+    /*width:5%;*/
+    height:100%;
+    float:right;
+    right:5%;
+    /*position:absolute;*/
+}
+    .gomenu a {
+        color:#FFFFFF;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:50px;
+        display:block;
+        text-align:center;
+        height:100%;    
+        bottom:0px;
+        line-height:200%;
+    }
+        .gomenu a img {
+            display:inline-block;
+            max-height:90%;
+            margin:0px 0px 0px;
+        }
+
+.mation {
+    width:100%;
+    height:95%;
+    position:absolute;
+    background-color:#5ca3d8;
+    top:5%;
+}
+
+    .mation .Search {
+        margin-top:1%;
+    }
+
+    .mation .Menu {
+        height:93.5%;
+        overflow-x:scroll;
+    }
