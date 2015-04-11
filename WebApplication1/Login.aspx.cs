@@ -25,15 +25,29 @@ namespace COFCOsubmission
 
         protected void landbutton1_Click(object sender, EventArgs e)
         {
-            LoginUser user = loginDAL.Verification(userName.Text.Trim(), userPassword.Text.Trim());
-            if (user == null)
+            if (String.Compare(Request.Cookies["yzmcode"].Value,checkImg.Text.ToString(), true) != 0)
             {
-                //messag.Text = "*登陆失败：用户名或密码错误";
+                Response.Write("<script>alert('验证码错误!')</script>");
             }
             else
-            {
-                Response.Redirect("Index.aspx");
-            }
+            { 
+                Response.Write("<script>alert('验证吗正确!!!')</script>");
+                LoginUser user = loginDAL.Verification(userName.Text.Trim(), userPassword.Text.Trim());
+                if (user == null)
+                {
+                    //messag.Text = "*登陆失败：用户名或密码错误";
+                }
+                else
+                {
+                    Response.Redirect("Index.aspx");
+                }
+            } 
+        }
+
+
+        protected void ChangeCode_Click1(object sender, EventArgs e)
+        {
+
         }
     }
 }

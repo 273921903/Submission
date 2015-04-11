@@ -122,7 +122,8 @@
 <form id="form1" runat="server" onkeypress="if(event.keyCode==13){return false;}" >
     <table  class="Information" width="100%" border="0" style="border-style: none; border-width: medium; padding: 0px; margin: 0px;">
         <tr class="header">
-            <td style="text-align:left; height:100%;"><img src="img/home.png" title="主页"/></td>
+            <td style="text-align:left; height:100%;">
+                <asp:ImageButton ID="btnHome" runat="server" ImageUrl="~/img/home.png" OnClick="btnHome_Click" Width="50px" /></td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td  style="text-align:right">
