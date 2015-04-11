@@ -7,7 +7,7 @@ namespace COFCOsubmission
 {
     public class Variable
     {
-        //会话
+        //会话0
         public static DAL.LoginUser loginUser;
         //全局消息提示
         public static string errorMessage;
