@@ -22,24 +22,6 @@ namespace COFCOsubmission {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// HomeBtn 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button HomeBtn;
-        
-        /// <summary>
-        /// submitBtn 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submitBtn;
-        
-        /// <summary>
         /// btnDelet 控件。
         /// </summary>
         /// <remarks>
@@ -55,7 +37,7 @@ namespace COFCOsubmission {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TextBox1;
         
         /// <summary>
         /// GridView1 控件。

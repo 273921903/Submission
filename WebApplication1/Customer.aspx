@@ -4,11 +4,13 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>客户档案信息</title>
-<%--<link href="css/Customer.css" rel="stylesheet" />--%>
 <style type="text/css">
-        body{font-size:50px;}
+        body{font-size:50px;margin:0;height:100%;}
         input{font-size:40px;}
-    </style>
+    #tablemain {
+        position:absolute;
+    }
+</style>
 <script src="Scripts/jquery-1.7.1.min.js"></script>
 <script>
         $(function () {
@@ -33,7 +35,7 @@
                 //传真
                 window.opener.document.getElementById("Buyfax").value = $(this).parent().find("td:eq(3)").text();
                 
-                alert($(this).parent().find("td:eq(1)").text());
+                //alert($(this).parent().find("td:eq(1)").text());
                 //发货地址下框清空项
                 window.opener.document.getElementById("BuyAdes1").options.length = 0;
                 $.ajax({
@@ -43,7 +45,7 @@
                     dataType:"json",
                     success: function (data) {
                         //返回的数据用data.d获取内容
-                        alert(data.d);
+                        //alert(data.d);
                         window.opener.document.getElementById("BuyAdes1").innerHTML = data.d
                         
                         window.close();
@@ -58,23 +60,23 @@
 </head>
 <body>
 <form id="form2" runat="server">
-  <table align="center" width="100%" style="margin-top:0px" cellpadding="0px" cellspacing="0px">
-    <tr style="background-color:#2461BF; text-align:center; height:40px;">
+  <table id="tablemain" align="center" width="100%" height="100%" style="margin-top:0px" cellpadding="0px" cellspacing="0px">
+    <tr style="background-color:#2461BF; text-align:center; height:5%;">
       <td align="right" colspan="2">
-          <input type="button" value="关闭" onClick="javascript: window.close();"/>
+          <img alt="关闭" style="height: 60px;margin-right:2%;" src="img/icon_close_alt2.png" onClick="javascript: window.close();" />
+          <%--<input type="button" value="关闭" onClick="javascript: window.close();"/>--%>
       </td>
     </tr>
-      <tr><td style="height:10px;"></td></tr>
-    <tr>
+      <tr><td style="height:1%; background-color:#5CA3D8;"></td></tr>
+    <tr style="height:5%; background-color:#5CA3D8;">
       <td align="left" style="height: 26px" colspan="2"> 客户名称:
         <asp:TextBox ID="SearchText" runat="server" Text="请输入查询关键字" AutoPostBack="True" OnTextChanged="SearchText_TextChanged"></asp:TextBox>
         <asp:Button ID="Button2" runat="server" Text="查询" OnClick="Button1_Click" />              
 	 </td>
     </tr>
-    <tr>
-      <td colspan="2"><table>
-          <tr>
-            <td colspan="2"><div class="Menu">
+    <tr style="height: 89%; position: absolute; width: 100%; background-color:#5CA3D8;">
+      <td colspan="2" style="height: 100%; width:100%; position: absolute;">
+          <div class="Menu" style="overflow-x:scroll;height:100%;" >
                 <asp:GridView ID="CustGiv" runat="server" AutoGenerateColumns="False" CellPadding="4" EnableModelValidation="True" ForeColor="#333333" GridLines="None" Width="100%">
                   <AlternatingRowStyle BackColor="White" />
                   <Columns>
@@ -93,8 +95,6 @@
                   <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
                 </asp:GridView>
               </div></td>
-          </tr>
-        </table></td>
     </tr>
   </table>
 </form>

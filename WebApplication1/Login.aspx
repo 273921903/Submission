@@ -4,18 +4,12 @@
 <head runat="server">
 <title>中粮北京科技手机订单系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <script type="text/javascript" src="Scripts/jquery-1.7.1.min.js"></script>
-    <%--<script type="text/javascript">
-        $(function () {
-            alert("")
-        })
-    </script>--%>
 </head>
 <body>
 <form id="form1" runat="server">
   <table align="center">
     <tr>
-      <td colspan="2" align="center" valign="middle">中粮北京科技手机订单系统
+      <td colspan="2" align="center" valign="middle">手机订单系统
         <hr />
         <br /></td>
     </tr>

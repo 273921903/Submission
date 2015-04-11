@@ -58,5 +58,39 @@ namespace COFCOsubmission.DAL
             }
             return null;
         }
+
+        /// <summary>
+        /// 修改主表总金额
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="allmoney"></param>
+        public static void updateContract(string id, double allmoney)
+        {
+            SqlConnection conn = new SqlConnection(connectString);
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            DataTable dt = new DataTable();
+            SqlCommand com = new SqlCommand();
+            com.Connection = conn;
+            SqlTransaction transaction = conn.BeginTransaction();
+            com.Transaction = transaction;
+            try
+            {
+                string strsql = "update xf_contract set amountMoney='" + allmoney + "' where id='" + id + "'";
+                com.CommandText = strsql;
+                com.ExecuteNonQuery();
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
     }
 }

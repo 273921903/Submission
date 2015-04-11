@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.Script.Services;
 using System.Data;
 using COFCOsubmission.DAL;
+using COFCOsubmission.OABMPService;
 
 namespace COFCOsubmission
 {
@@ -28,9 +29,56 @@ namespace COFCOsubmission
                 this.Btn_Details.Visible = false;
                 this.Btn_Commit.Visible = false;
                 this.Selldb.Value =Variable.loginUser.UserName;
-                this.BuyTime.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                this.SellTime.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                this.BuyTime.Value = DateTime.Now.ToString("yyyy-MM-dd");
+                this.SellTime.Value = DateTime.Now.ToString("yyyy-MM-dd");
                 //this.hetongNum.Value = GetContractNo("06");
+            }
+
+
+            if (Request.QueryString["id"] != "" && Request.QueryString["id"] != null)
+            {
+                DataTable dt = contractDAL.GetData(" xf_contract ", " * ", " id='" + Request.QueryString["id"].ToString() + "'");
+
+                maif.Value = dt.Rows[0]["Seller"].ToString();
+                payfang.Value = dt.Rows[0]["Buyer"].ToString();
+                hetongNum.Value = dt.Rows[0]["ContractID"].ToString();
+                qianyuePlace.Value = dt.Rows[0]["ContractAddress"].ToString();
+                jiaohuoTime.Value = dt.Rows[0]["DeliveryTime"].ToString();
+                jiaohuoPlace.Value = dt.Rows[0]["DeliveryAddress"].ToString();
+                feiyong.Value = dt.Rows[0]["Transcost"].ToString();
+                fukuan.Value = dt.Rows[0]["paymentType"].ToString();
+                lvxingTime.Value = dt.Rows[0]["PerformPeriod"].ToString();
+                Buydb.Value = dt.Rows[0]["BuyerRep"].ToString();
+                BuyAdes.Value = dt.Rows[0]["BuyerAddress"].ToString();
+                BuyPhone.Value = dt.Rows[0]["BuyerPhone"].ToString();
+                Buyfax.Value = dt.Rows[0]["BuyerFax"].ToString();
+                Buybank.Value = dt.Rows[0]["BuyerOpebanck"].ToString();
+                BuyNumber.Value = dt.Rows[0]["BuyerBankacc"].ToString();
+                BuyTime.Value = dt.Rows[0]["BuyerSigtime"].ToString();
+
+                Selldb.Value = dt.Rows[0]["SellerRep"].ToString();
+                SellAde.Value = dt.Rows[0]["SellerAddress"].ToString();
+                SellPhone.Value = dt.Rows[0]["SellerPhone"].ToString();
+                Sellfax.Value = dt.Rows[0]["SellerFax"].ToString();
+                Sellbank.Value = dt.Rows[0]["SellerOpebanck"].ToString();
+                SellNumber.Value = dt.Rows[0]["SellerBankacc"].ToString();
+                SellTime.Value = dt.Rows[0]["SellerSigtime"].ToString();
+                this.id.Value = Request.QueryString["id"].ToString();
+
+                string BuyerAddress = dt.Rows[0]["BuyerAddress"].ToString();
+                string BuyerPhone = dt.Rows[0]["BuyerPhone"].ToString();
+
+
+                DataTable dts = contractDAL.GetData(" xf_supplier ", " custcode ", " custname = '" + dt.Rows[0]["Buyer"].ToString() + "'");
+                if (dts.Rows.Count > 0)
+                {
+                    ViewState["address"] = queryAddress(dts.Rows[0][0].ToString(), BuyerAddress + "|" + BuyerPhone);
+                    ViewState["id"] = Request.QueryString["id"].ToString();
+                }
+                this.Btn_Details.Visible = true;
+                this.Btn_Commit.Visible = true;
+
+                
             }
      }
         /// <summary>
@@ -65,11 +113,11 @@ namespace COFCOsubmission
                         addrname = dt.Rows[i]["addrname"].ToString();
                     }
 
-                    string addrnameall=addrname = dt.Rows[i]["addrname"].ToString();
+                    string addrnameall = dt.Rows[i]["addrname"].ToString();
                     string linkname = dt.Rows[i]["linkname"].ToString();
                     string phone = dt.Rows[i]["phone"].ToString();
 
-                    string newValue = addrname + "|" + linkname + "|" + phone;
+                    string newValue = addrnameall + "|" + linkname + "|" + phone;
                     string selected = "";
                     if (newValue == defaultValue)
                     {
@@ -112,36 +160,55 @@ namespace COFCOsubmission
             info.SellerBankacc = SellNumber.Value.ToString();
             info.SellerSigtime = SellTime.Value.ToString();
             info.UserId = Variable.loginUser.UserCode.ToString();
-            info.Submitting = false;
-            info.Examine = false;
+            info.Submitting = 1;
+            info.Examine = 0;
 
             if (id == "")
             {
                 //info.ID = DAL.ContractInfoDAL.GenerateCheckCode(15).ToString();
                 info.ID = Guid.NewGuid().ToString("N");
-                int i = new DAL.ContractDAL().AddOrUpdateContract("Add", info);
-                if (i > 0)
+                DataTable dt = contractDAL.GetData(" xf_contract ", " * ", " id='" + id + "'");
+                if (dt.Rows.Count < 1)
                 {
-                    this.id.Value = info.ID;
-                    //message("保存成功！");
-                    //this.aa.Visible = true;
-                    Btn_Details.Visible = true;
-                    //保存之后赋值
-                    ViewState["address"] = queryAddress(custcode, info.BuyerAddress + "|" + info.BuyerPhone);
-                    ViewState["id"] = info.ID;
+                    int i = new DAL.ContractDAL().AddOrUpdateContract("Add", info);
+                    if (i > 0)
+                    {
+                        this.id.Value = info.ID;
+                        //message("保存成功！");
+                        //this.aa.Visible = true;
+                        Btn_Details.Visible = true;
+                        Btn_Commit.Visible = true;
+                        //保存之后赋值
+                        ViewState["address"] = queryAddress(custcode, info.BuyerAddress + "|" + info.BuyerPhone);
+                        ViewState["id"] = info.ID;
+                    }
+                    else
+                    {
+                        message("保存失败！");
+                    }
                 }
-                else
-                {
-                    message("保存失败！");
-                }
-
             }
             else
             {
                 //修改
                 info.ID = id;
                 int i = new DAL.ContractDAL().AddOrUpdateContract("Update", info);
+                Btn_Details.Visible = true;
+                Btn_Commit.Visible = true;
             }
+        }
+
+        protected void Btn_Commit_Click(object sender, EventArgs e)
+        {
+            string id = this.id.Value.ToString();
+            BPMSrvPortTypeClient client = new BPMSrvPortTypeClient("BPMSrvHttpSoap11Endpoint");
+            DataVO data=contractDAL.GetOAData(id);
+            ResponseVO res= client.launchForm("oa-lgx","合同申请单-测试",data);
+        }
+
+        protected void Btn_Details_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

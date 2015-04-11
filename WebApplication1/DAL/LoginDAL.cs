@@ -39,7 +39,9 @@ namespace COFCOsubmission.DAL
                 {
                     loginUser.UserCode = dt.Rows[0]["usercode"].ToString();
                     loginUser.UserName = dt.Rows[0]["username"].ToString();
+                    //OA账号
                     loginUser.OaAccount = dt.Rows[0]["usernode"].ToString().Split('@')[0];
+                    //OA名称
                     loginUser.OaAccountName = dt.Rows[0]["usernode"].ToString().Split('@')[1];
 
                     //作为全局变量

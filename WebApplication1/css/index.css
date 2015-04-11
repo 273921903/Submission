@@ -1,7 +1,7 @@
 ﻿body {
     margin-top:0px;
     margin-left:0px;
-
+    margin-right:0px;
 }
 
 a {
@@ -75,13 +75,13 @@ a {
      z-index:9999; 
      width:95%; 
      height:80px;
-     padding:4px 3%;
+     padding:4px 2.5%;
      background-color:#2365C4;
      color:#FFF;
 }
  #header input{
      font-size:35px;
-     width:150px;
+     width:130px;
 }
 
 .gohome{ width:5%; height:100%; float:left;}

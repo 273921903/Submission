@@ -1,16 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Contract.aspx.cs" Inherits="COFCOsubmission.Contract" %>
-<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title></title>
+<title>合同信息</title>
 <%--<link href="css/index.css" rel="stylesheet" />--%>
 <script src="Scripts/jquery-1.7.1.min.js"></script>
+<script src="Scripts/jquery-ui-datepicker.js"></script>
 <script src="Scripts/contract.js"></script>
-    <script src="Scripts/jquery-ui-datepicker.js"></script>
-    <link href="css/jquery-ui.css" rel="stylesheet" />
-<script type="text/javascript">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+
+
+<script>
+        //地址下拉框选择事件
         function getvalue(obj) {
             var value = obj.options[obj.selectedIndex].value
             if (value != "") {
@@ -21,7 +23,7 @@
             }
           
         }
-    //明细
+        //明细
         function Goahed() {
             window.location.href = "ContractInfo.aspx?from=main&id=<%=ViewState["id"]%>";
         }
@@ -46,6 +48,11 @@
             border-collapse:collapse;
             overflow:hidden;
         }
+
+            table span {
+                margin-left:4%;
+            }
+
         .Information {
             height:100%;
         }
@@ -83,7 +90,7 @@
         .List input{
             font-size:50px;
             width:85%;
-            margin-left:2%;
+            margin-left:4%;
         }
 
         #payfang {
@@ -91,16 +98,16 @@
         }
 
         #BuyAdes1 {
-            width:90%;
+            width:85%;
             font-size:50px;
             overflow:hidden;
-            margin-left:2%;
+            margin-left:4%;
         }
 
         #fukuan {
-            width:90%;
+            width:85%;
             font-size:40px;
-            margin-left:2%;
+            margin-left:4%;
         }
 
         #BuyTable img {
@@ -112,7 +119,7 @@
     </style>
 </head>
 <body>
-<form id="form1" runat="server" onKeyPress="if(event.keyCode==13){return false;}">
+<form id="form1" runat="server" onkeypress="if(event.keyCode==13){return false;}" >
     <table  class="Information" width="100%" border="0" style="border-style: none; border-width: medium; padding: 0px; margin: 0px;">
         <tr class="header">
             <td style="text-align:left; height:100%;"><img src="img/home.png" title="主页"/></td>
@@ -121,7 +128,7 @@
           <td  style="text-align:right">
               <input id="Btn_Details" onclick="Goahed();" runat="server" type="button" value="明细" />
             <asp:Button ID="Btn_Save" runat="server" Text="保存" OnClick="Btn_Save_Click"/>
-            <asp:Button ID="Btn_Commit" runat="server" Text="提交" />
+            <asp:Button ID="Btn_Commit" runat="server" Text="提交" OnClick="Btn_Commit_Click" />
           </td>
         </tr>
         <tr height="5%" style="font-size:50px; color:white;">
@@ -137,7 +144,7 @@
             <td colspan="4" class="List">
                 <table id="httable" width="100%" border="0">
                     <tr>
-                            <td>卖方名称:</td>
+                            <td><span>卖方名称:</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -148,17 +155,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>买方名称：</td>
+                        <td><span>买方名称：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="payfang" runat="server" type="text" />
-                            <img style="cursor: pointer; width: 50px; height: 50px;" alt="选择客户" id="buyerM"
-                                src="img/BuyerM.png" />
+                            <img style="cursor: pointer; width: 60px; height: 60px; position:absolute;" alt="选择客户" id="buyerM"
+                                src="img/serc.png" />
                         </td>
                     </tr>
                     <tr>
-                        <td>发货地址：</td>
+                        <td><span>发货地址：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -169,14 +176,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>联系电话：</td>
+                        <td><span>联系电话：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input runat="server" id="BuyPhone" type="text" /></td>
                     </tr>
                     <tr>
-                        <td>运输费用：</td>
+                        <td><span>运输费用：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -184,7 +191,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>付款方式：</td>
+                        <td><span>付款方式：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -195,7 +202,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>履行期限：</td>
+                        <td><span>履行期限：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -206,7 +213,7 @@
                 <%-- 买方--%>
                 <table id="BuyTable" width="100%">
                     <tr>
-                        <td>交货时间：</td>
+                        <td><span>交货时间：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -214,7 +221,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>交货地点：</td>
+                        <td><span>交货地点：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -222,7 +229,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>签约时间：</td>
+                        <td><span>签约时间：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -230,7 +237,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>签约地点：</td>
+                        <td><span>签约地点：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -238,7 +245,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>签约代表：</td>
+                        <td><span>签约代表：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -246,21 +253,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>传真：</td>
+                        <td><span>传真：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="Buyfax" runat="server" type="text" /></td>
                     </tr>
                     <tr>
-                        <td>开户行：</td>
+                        <td><span>开户行：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="Buybank" runat="server" type="text" /></td>
                     </tr>
                     <tr>
-                        <td>账号：</td>
+                        <td><span>账号：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -270,21 +277,21 @@
 
                 <table id="SellTable" width="100%">
                     <tr>
-                        <td>卖方地址：</td>
+                        <td><span>卖方地址：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="SellAde" runat="server" type="text" value="北京市海淀区中关村南大街12号信息楼3层" /></td>
                     </tr>
                     <tr>
-                        <td>联系电话：</td>
+                        <td><span>联系电话：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="SellPhone" type="text" runat="server" value="010-62166116" /></td>
                     </tr>
                     <tr>
-                        <td>签约时间：</td>
+                        <td><span>签约时间：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -292,7 +299,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>签约代表：</td>
+                        <td><span>签约代表：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -300,21 +307,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>传真：</td>
+                        <td><span>传真：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="Sellfax" type="text" runat="server" value="010-62166156" /></td>
                     </tr>
                     <tr>
-                        <td>开户行：</td>
+                        <td><span>开户行：</span></td>
                     </tr>
                     <tr>
                         <td>
                             <input id="Sellbank" type="text" runat="server" value="农行北京白石桥支行" /></td>
                     </tr>
                     <tr>
-                        <td>账号：</td>
+                        <td><span>账号：</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -324,6 +331,7 @@
             </td>
         </tr>
     </table>
+  
 </form>
 </body>
 </html>

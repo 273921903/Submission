@@ -26,7 +26,7 @@ namespace COFCOsubmission
                 if (from == "main")
                 {
                     Session["id"] = mainId;
-                    TextBox1.Text = mainId;
+                    TextBox1.Value = mainId;
                     DataTable dt = new DataTable();
                     dt = ContractInfoDAL.GetData(mainId);
                     GridView1.DataSource = dt;
@@ -35,7 +35,7 @@ namespace COFCOsubmission
                 else
                 {
                     mainId = Session["id"].ToString();
-                    TextBox1.Text = mainId;
+                    TextBox1.Value = mainId;
                     string param = Request["param"];
                     AddProductInData(param);
                 }
@@ -53,14 +53,14 @@ namespace COFCOsubmission
             try
             {
                 DAL.Contract_b contract_b = new DAL.Contract_b();
-            string [] items  = str.Split('@');
-            contract_b.Sid = Guid.NewGuid().ToString("N");
-            contract_b.Mid = mainId;
-            contract_b.Invcode = items[0].ToString();
-            contract_b.Invname = items[1].ToString();
-            contract_b.Invspec = items[4].ToString();
-            contract_b.Measname = items[2].ToString();
-            contract_b.Measrate = items[3].ToString();
+                string [] items  = str.Split('@');
+                contract_b.Sid = Guid.NewGuid().ToString("N");
+                contract_b.Mid = mainId;
+                contract_b.Invcode = items[0].ToString();
+                contract_b.Invname = items[1].ToString();
+                contract_b.Invspec = items[4].ToString().Trim();
+                contract_b.Measname = items[2].ToString();
+                contract_b.Measrate = items[3].ToString();
             //contract_b.Num = "";
             //contract_b.Price = "";
             //contract_b.Nmoney = "";
@@ -68,17 +68,16 @@ namespace COFCOsubmission
             //contract_b.Def2 = "";
             //contract_b.Def3 = "";
 
-            
-            
-            if (ContractInfoDAL.AddContract_b(contract_b) > 0)
-            {
+                DAL.ContractDAL contractdal = new DAL.ContractDAL();
+                DataTable dta = contractdal.GetData(" xf_contract_b ", " sid ", " invcode ='" + items[0].ToString() + "' and mid='" + mainId + "'");
+                if (dta.Rows.Count < 1)
+                {
+                    ContractInfoDAL.AddContract_b(contract_b);
+                }
                 DataTable dt = new DataTable();
                 dt = ContractInfoDAL.GetData(mainId);
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
-                
-                
-            }
             }catch(Exception ex)
             {
                 ex.ToString();
@@ -125,27 +124,38 @@ namespace COFCOsubmission
          }
 
         /// <summary>
-        /// 确认按钮
+        /// 合同明细修改数量等信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void submitBtn_Click(object sender, EventArgs e)
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = true)]
+        public static string btnSubmit_click(string items)
         {
-            for (int i = 0;i < GridView1.Rows.Count; i++)
+            string[] item = items.Split('|');
+            Contract_b[] subVOS = new Contract_b[item.Length];
+            double allmoney=0;
+            for (int i = 0; i < item.Length;i++)
             {
-                for (int y = 5; y < 8; y++)
-                {
-                    TextBox str = ((TextBox)GridView1.Rows[i].Cells[5].FindControl("textNum"));
-                    string tex = str.Text;
-                    
-                }
-                
+                Contract_b subVO = new Contract_b();
+                string[] s = item[i].ToString().Split('@');
+                subVO.Sid = s[0];
+                subVO.Num = s[1];
+                subVO.Price = s[2];
+                subVO.Nmoney = s[3];
+                allmoney += double.Parse(subVO.Nmoney.ToString());
+                subVOS[i] = subVO;
             }
-
-            int x = 1;
+            string msg = "";
+            if (ContractInfoDAL.UpdateContract_b(subVOS) == -1)
+            {
+                msg = "保存失败!";
+            }
+            else
+            {
+                ProductInfoDAL.updateContract(mainId, allmoney);
+            }
+            return msg;
         }
-
-
-       
     }
 }
