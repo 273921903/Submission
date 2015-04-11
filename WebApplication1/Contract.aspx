@@ -94,19 +94,19 @@
         }
 
         #payfang {
-            width:85%;
+            width:80%;
         }
 
         #BuyAdes1 {
-            width:85%;
+            width:90%;
             font-size:50px;
             overflow:hidden;
             margin-left:4%;
         }
 
         #fukuan {
-            width:85%;
-            font-size:40px;
+            width:90%;
+            font-size:50px;
             margin-left:4%;
         }
 
@@ -160,6 +160,7 @@
                     <tr>
                         <td>
                             <input id="payfang" runat="server" type="text" />
+                            
                             <img style="cursor: pointer; width: 60px; height: 60px; position:absolute;" alt="选择客户" id="buyerM"
                                 src="img/serc.png" />
                         </td>
@@ -169,7 +170,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <select id="BuyAdes1" onchange="getvalue(this)" style="font-size: 40px;">
+                            <select id="BuyAdes1" onchange="getvalue(this)" style="font-size: 50px;">
                                 <%=ViewState["address"]  %>
                             </select>
                             <input type="hidden" runat="server" id="BuyAdes" />
@@ -233,7 +234,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input id="BuyTime" runat="server" type="text" runat="server" />
+                            <input id="BuyTime" runat="server" type="text"  style="width:80%" />
                         </td>
                     </tr>
                     <tr>
