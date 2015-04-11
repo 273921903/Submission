@@ -18,7 +18,8 @@ namespace COFCOsubmission
         protected void Page_Load(object sender, EventArgs e)
         {
             string id = this.id.Value.ToString();
-            if (id == "" || id == null)
+
+            if ((id == "" || id == null) && (Request.QueryString["id"] == "" || Request.QueryString["id"] == null))
             {
                 if (Variable.loginUser == null)
                 {
@@ -68,12 +69,14 @@ namespace COFCOsubmission
                 string status = dt.Rows[0]["submitting"].ToString();
 
                 string BuyerAddress = dt.Rows[0]["BuyerAddress"].ToString();
+                //string linkname = dt.Rows[0]["linkname"].ToString();
                 string BuyerPhone = dt.Rows[0]["BuyerPhone"].ToString();
+                string defaultValue=BuyerAddress + "|" + BuyerPhone;
 
                 DataTable dts = contractDAL.GetData(" xf_supplier ", " custcode ", " custname = '" + dt.Rows[0]["Buyer"].ToString() + "'");
                 if (dts.Rows.Count > 0)
                 {
-                    ViewState["address"] = queryAddress(dts.Rows[0][0].ToString(), BuyerAddress + "|" + BuyerPhone);
+                    ViewState["address"] = queryAddress(dts.Rows[0][0].ToString(), defaultValue);
                     ViewState["id"] = Request.QueryString["id"].ToString();
                 }
 
@@ -81,6 +84,11 @@ namespace COFCOsubmission
                 if (Int32.Parse(status) == 2)
                 {
                     this.Btn_Save.Visible = false;
+                    this.Btn_Commit.Visible = false;
+                }
+                //明细为空，不允许提交
+                if (Int32.Parse(status) == 0)
+                {
                     this.Btn_Commit.Visible = false;
                 }
             }
@@ -91,7 +99,10 @@ namespace COFCOsubmission
         /// <param name="str"></param>
         public void message(string str)
         {
-            Response.Write("<script>alert('"+str+"')</script>");
+            //Response.Clear();
+            //Response.Write("<script>alert('"+str+"');return false;</script>");
+            this.ClientScript.RegisterClientScriptBlock(this.GetType(), "ShowMessage", "alert('"+str+"');",true);
+
         }
 
         public static string queryAddress(string custcode,string defaultValue)
@@ -161,7 +172,7 @@ namespace COFCOsubmission
             info.SellerBankacc = SellNumber.Value.ToString();
             info.SellerSigtime = SellTime.Value.ToString();
             info.UserId = Variable.loginUser.UserCode.ToString();
-            info.Submitting = 1;
+            info.Submitting = 0;   //新增状态  
             info.Examine = 0;
 
             if (id == "")
@@ -176,7 +187,7 @@ namespace COFCOsubmission
                     {
                         this.id.Value = info.ID;
                         Btn_Details.Visible = true;
-                        Btn_Commit.Visible = true;
+                        Btn_Commit.Visible = false;
                         //保存之后赋值
                         ViewState["address"] = queryAddress(custcode, info.BuyerAddress + "|" + info.BuyerPhone);
                         ViewState["id"] = info.ID;
@@ -193,7 +204,7 @@ namespace COFCOsubmission
                 info.ID = id;
                 int i = new DAL.ContractDAL().AddOrUpdateContract("Update", info);
                 Btn_Details.Visible = true;
-                Btn_Commit.Visible = true;
+                //Btn_Commit.Visible = true;
             }
         }
         /// <summary>
@@ -211,11 +222,12 @@ namespace COFCOsubmission
             string oaLoginName = Variable.loginUser.OaAccountName;
             string oaTitle = "销售订单申请表(" + oaLoginName + ")";
             ResponseVO res = client.launchForm(oaLoginAccount, oaTitle, data);
+            //message(res.msg);
             if (res.colId != -1)
             {
                 //更新合同状态为已提交
                 new DAL.ContractDAL().updateContractStatus(id);
-                //message("合同申请单提交OA成功！");
+                message("合同申请单提交OA成功！");
                 this.Btn_Commit.Visible = false;
                 this.Btn_Save.Visible = false;
             }

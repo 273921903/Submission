@@ -58,7 +58,7 @@
         }
         .header {
             background-color:#2365C4;
-            
+            height:5%;
         }
             .header input {
                 font-size:35px;

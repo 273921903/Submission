@@ -110,7 +110,7 @@ namespace COFCOsubmission.DAL
                      com.CommandText += "deliveryAddress=@deliveryAddress,transcost=@transcost,paymentType=@paymentType,performPeriod=@performPeriod,buyerRep=@buyerRep,";
                      com.CommandText += "buyerAddress=@buyerAddress,buyerPhone=@buyerPhone,buyerFax=@buyerFax,buyerOpebanck=@buyerOpebanck,buyerBankacc=@buyerBankacc,buyerSigtime=@buyerSigtime,";
                      com.CommandText += "sellerRep=@sellerRep,sellerAddress=@sellerAddress,sellerPhone=@sellerPhone,sellerFax=@sellerFax,sellerOpebanck=@sellerOpebanck,sellerBankacc=@sellerBankacc,";
-                     com.CommandText += "sellerSigtime=@sellerSigtime,userId=@userId,submitting=@submitting,examine=@examine where id=@id ";
+                     com.CommandText += "sellerSigtime=@sellerSigtime,userId=@userId,examine=@examine where id=@id ";
                      
                      com.Parameters.AddWithValue("@id", info.ID);
                      com.Parameters.AddWithValue("@contractId", info.ContractID);
@@ -138,7 +138,7 @@ namespace COFCOsubmission.DAL
                      com.Parameters.AddWithValue("@sellerSigtime", info.SellerSigtime);
                      //com.Parameters.AddWithValue("@amountMoney", info.AmountMoney);
                      com.Parameters.AddWithValue("@userId", info.UserId);
-                     com.Parameters.AddWithValue("@submitting", info.Submitting);
+                     //com.Parameters.AddWithValue("@submitting", info.Submitting);
                      com.Parameters.AddWithValue("@examine", info.Examine);
                  }
 
@@ -274,7 +274,8 @@ namespace COFCOsubmission.DAL
                      oaData.sellerOpebank = dr["sellerOpebanck"].ToString();
                      oaData.sellerBankId = dr["sellerBankacc"].ToString();
 
-                     oaData.sellersigTime = dr["sellerSigtime"].ToString() ;
+                     oaData.sellersigTime = dr["sellerSigtime"].ToString();
+                     oaData.totalMoney = dr["amountmoney"].ToString();
                      //oaData.userId = dr["userId"].ToString();
                      //oaData.Submitting = Boolean.Parse(dr["submitting"].ToString());
                      //oaData.Examine = Boolean.Parse(dr["examine"].ToString());
