@@ -14,7 +14,7 @@
     <RootNamespace>COFCOsubmission</RootNamespace>
     <AssemblyName>COFCOsubmission</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
