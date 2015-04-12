@@ -238,5 +238,17 @@ namespace COFCOsubmission
 
         }
 
+        /// <summary>
+        /// 返回主页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnHome_Click(object sender, ImageClickEventArgs e)
+        {
+            this.id.Value = "";
+            Response.Redirect("index.aspx");
+            Session["id"] = null;
+        }
+
     }
 }

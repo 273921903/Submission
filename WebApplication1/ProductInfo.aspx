@@ -77,7 +77,7 @@
                     <span style="font-size:50px;text-align:center;height:100%;">存货档案信息</span>
                 </td>
                 <td style="text-align:right;width:25%;">
-                    <input id="btnCloss"  style="font-size:40px;" type="button" value="关闭" />
+                    <img alt="关闭" style="height: 60px;margin-right:2%;" src="img/icon_close_alt2.png" onClick="javascript: window.close();" />
                 </td>
             </tr>
             <tr style="height:5%;">

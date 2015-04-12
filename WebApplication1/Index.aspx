@@ -21,7 +21,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Contract.aspx?id=5bef04cddc7f4f0dad65902a8be4ffcb">
+                        <a href="ContractList.aspx">
                             <img src="img/layout.png"/>
                             <span>我的订单</span>
                         </a>
